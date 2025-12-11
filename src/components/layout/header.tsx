@@ -2,8 +2,8 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
-import { ThemeToggle } from "@/components/theme-toggle";
+import { Menu, X, Moon, Sun } from "lucide-react";
+import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 
 const navItems = [
@@ -16,6 +16,12 @@ const navItems = [
 export function Header() {
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -38,10 +44,12 @@ export function Header() {
           {/* Logo */}
           <Link
             href="#home"
-            className="font-sans text-lg font-semibold tracking-wide transition-colors hover:text-primary"
+            className={`font-sans text-lg font-semibold tracking-wide transition-colors hover:opacity-80 ${
+              isScrolled ? "" : "text-white"
+            }`}
           >
             <span className="text-primary">MAKSOUD</span>
-            <span className="hidden sm:inline"> COAL</span>
+            <span className={`hidden sm:inline ${isScrolled ? "" : "text-white"}`}> COAL</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -50,27 +58,69 @@ export function Header() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="font-body text-sm font-medium tracking-wide uppercase transition-colors hover:text-primary"
+                className={`font-body text-sm font-medium tracking-wide uppercase transition-colors hover:text-primary ${
+                  isScrolled ? "text-foreground" : "text-white"
+                }`}
               >
                 {item.name}
               </Link>
             ))}
-            <ThemeToggle />
+            {/* Theme Toggle */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className={`h-9 w-9 transition-colors ${
+                isScrolled
+                  ? "hover:bg-muted"
+                  : "text-white hover:bg-white/10 hover:text-white"
+              }`}
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            >
+              {mounted && (
+                <>
+                  <Sun className={`h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 ${!isScrolled ? "text-white" : ""}`} />
+                  <Moon className={`absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 ${!isScrolled ? "text-white" : ""}`} />
+                </>
+              )}
+              <span className="sr-only">Toggle theme</span>
+            </Button>
           </div>
 
           {/* Mobile Menu Button */}
           <div className="flex items-center gap-4 md:hidden">
-            <ThemeToggle />
+            {/* Theme Toggle Mobile */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className={`h-9 w-9 transition-colors ${
+                isScrolled
+                  ? "hover:bg-muted"
+                  : "text-white hover:bg-white/10 hover:text-white"
+              }`}
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            >
+              {mounted && (
+                <>
+                  <Sun className={`h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 ${!isScrolled ? "text-white" : ""}`} />
+                  <Moon className={`absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 ${!isScrolled ? "text-white" : ""}`} />
+                </>
+              )}
+              <span className="sr-only">Toggle theme</span>
+            </Button>
             <Button
               variant="ghost"
               size="icon"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="h-9 w-9"
+              className={`h-9 w-9 transition-colors ${
+                isScrolled
+                  ? "hover:bg-muted"
+                  : "text-white hover:bg-white/10 hover:text-white"
+              }`}
             >
               {isMobileMenuOpen ? (
-                <X className="h-5 w-5" />
+                <X className={`h-5 w-5 ${!isScrolled ? "text-white" : ""}`} />
               ) : (
-                <Menu className="h-5 w-5" />
+                <Menu className={`h-5 w-5 ${!isScrolled ? "text-white" : ""}`} />
               )}
             </Button>
           </div>
@@ -78,14 +128,14 @@ export function Header() {
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="animate-fade-in border-t border-border bg-background/95 backdrop-blur-md md:hidden">
+          <div className="animate-fade-in border-t border-white/20 bg-black/80 backdrop-blur-md md:hidden">
             <div className="flex flex-col gap-4 py-6">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="font-body text-sm font-medium tracking-wide uppercase transition-colors hover:text-primary"
+                  className="font-body text-sm font-medium tracking-wide uppercase text-white transition-colors hover:text-primary"
                 >
                   {item.name}
                 </Link>
