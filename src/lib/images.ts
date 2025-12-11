@@ -12,7 +12,7 @@ export const images = {
     shipping: "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?q=80&w=2070&auto=format&fit=crop",
     storage: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2070&auto=format&fit=crop",
     portOperations: "https://images.unsplash.com/photo-1559137625-3c84e73accc6?q=80&w=2070&auto=format&fit=crop",
-    qualityControl: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2070&auto=format&fit=crop",
+    qualityControl: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?q=80&w=2070&auto=format&fit=crop",
     logistics: "https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=2070&auto=format&fit=crop",
   },
 
@@ -22,8 +22,8 @@ export const images = {
     "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?q=80&w=2070&auto=format&fit=crop",
     "https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=2070&auto=format&fit=crop",
     "https://images.unsplash.com/photo-1559137625-3c84e73accc6?q=80&w=2070&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1605745341112-85968b19335b?q=80&w=2071&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1473862170180-84427c485aca?q=80&w=2070&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=2070&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1536566482680-fca31930a0bd?q=80&w=2070&auto=format&fit=crop",
   ],
 
   // Testimonial background
