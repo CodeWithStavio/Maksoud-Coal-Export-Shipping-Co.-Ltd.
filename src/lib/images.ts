@@ -1,72 +1,157 @@
-// High-quality images from Unsplash for the site
+// High-quality images for Diamond Machines style site
 export const images = {
-  // Hero section - dramatic industrial/shipping scene
-  hero: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=2070&auto=format&fit=crop",
-
-  // About section - industrial operations
-  about: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2070&auto=format&fit=crop",
-
-  // Services images
-  services: {
-    coalExport: "https://images.unsplash.com/photo-1611273426858-450d8e3c9fce?q=80&w=2070&auto=format&fit=crop",
-    shipping: "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?q=80&w=2070&auto=format&fit=crop",
-    storage: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=2070&auto=format&fit=crop",
-    portOperations: "https://images.unsplash.com/photo-1524522173746-f628baad3644?q=80&w=2070&auto=format&fit=crop",
-    qualityControl: "https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?q=80&w=2070&auto=format&fit=crop",
-    logistics: "https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=2070&auto=format&fit=crop",
-  },
-
-  // Gallery/showcase images
-  gallery: [
-    "https://images.unsplash.com/photo-1591768793355-74d04bb6608f?q=80&w=2072&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?q=80&w=2070&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1578575437130-527eed3abbec?q=80&w=2070&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1553413077-190dd305871c?q=80&w=2070&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1565793298595-6a879b1d9492?q=80&w=2070&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1520333789090-1afc82db536a?q=80&w=2070&auto=format&fit=crop",
+  // Hero slider images - industrial machinery
+  heroSlides: [
+    {
+      image: "https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?q=80&w=2070&auto=format&fit=crop",
+      title: "Industrial Excellence",
+      subtitle: "Leading Manufacturer of Premium Machinery",
+    },
+    {
+      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop",
+      title: "Precision Engineering",
+      subtitle: "Cutting-Edge Technology Solutions",
+    },
+    {
+      image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=2070&auto=format&fit=crop",
+      title: "Global Solutions",
+      subtitle: "Serving Industries Worldwide",
+    },
   ],
 
-  // Testimonial background
-  testimonialBg: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop",
+  // About section
+  about: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2070&auto=format&fit=crop",
 
-  // CTA background
-  ctaBg: "https://images.unsplash.com/photo-1518709766631-a6a7f45921c3?q=80&w=2225&auto=format&fit=crop",
+  // Services/Products images
+  products: [
+    {
+      image: "https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?q=80&w=2070&auto=format&fit=crop",
+      title: "CNC Machines",
+      description: "High-precision computer numerical control machines for manufacturing excellence.",
+    },
+    {
+      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop",
+      title: "Laser Cutting",
+      description: "Advanced laser cutting systems for metal and industrial materials.",
+    },
+    {
+      image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=2070&auto=format&fit=crop",
+      title: "Industrial Robots",
+      description: "Automated robotic systems for production line efficiency.",
+    },
+    {
+      image: "https://images.unsplash.com/photo-1567789884554-0b844b597180?q=80&w=2070&auto=format&fit=crop",
+      title: "Welding Equipment",
+      description: "Professional welding machines and accessories.",
+    },
+  ],
 
-  // Team/company images
-  team: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2070&auto=format&fit=crop",
+  // Gallery images
+  gallery: [
+    "https://images.unsplash.com/photo-1565043589221-1a6fd9ae45c7?q=80&w=2070&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?q=80&w=2070&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1567789884554-0b844b597180?q=80&w=2070&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2070&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1537462715879-360eeb61a0ad?q=80&w=2070&auto=format&fit=crop",
+  ],
+
+  // CTA/Banner background
+  ctaBg: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952?q=80&w=2070&auto=format&fit=crop",
 };
 
-// Client logos (placeholder descriptions - using text-based logos)
-export const clients = [
-  { name: "Global Energy Corp", country: "USA" },
-  { name: "Pacific Steel Ltd", country: "Japan" },
-  { name: "European Power AG", country: "Germany" },
-  { name: "Asian Industries", country: "China" },
-  { name: "Nordic Metals", country: "Sweden" },
-  { name: "South Pacific Mining", country: "Australia" },
+// Company info
+export const companyInfo = {
+  name: "Diamond Machines",
+  tagline: "Industrial Excellence Since 1995",
+  description: "Leading manufacturer and supplier of industrial machinery, CNC equipment, and automated solutions. We provide cutting-edge technology to industries worldwide.",
+
+  // Contact info - different numbers for call and WhatsApp
+  phone: "+90 212 555 1234",
+  whatsapp: "+90 532 555 5678",
+  email: "info@diamondmachines.com",
+
+  address: {
+    street: "Industrial Zone, Building 45",
+    city: "Istanbul",
+    country: "Turkey",
+    zip: "34000",
+  },
+
+  workingHours: {
+    weekdays: "Mon - Fri: 08:00 - 18:00",
+    saturday: "Sat: 09:00 - 14:00",
+    sunday: "Sun: Closed",
+  },
+
+  social: {
+    facebook: "#",
+    instagram: "#",
+    linkedin: "#",
+    twitter: "#",
+    youtube: "#",
+  },
+};
+
+// Stats
+export const stats = [
+  { value: "25+", label: "Years Experience" },
+  { value: "500+", label: "Machines Sold" },
+  { value: "50+", label: "Countries" },
+  { value: "1000+", label: "Happy Clients" },
+];
+
+// Services
+export const services = [
+  {
+    title: "Manufacturing",
+    description: "State-of-the-art manufacturing facilities producing high-quality industrial machinery.",
+    icon: "Factory",
+  },
+  {
+    title: "Installation",
+    description: "Professional installation services by certified technicians worldwide.",
+    icon: "Wrench",
+  },
+  {
+    title: "Maintenance",
+    description: "Comprehensive maintenance and support programs for optimal performance.",
+    icon: "Settings",
+  },
+  {
+    title: "Training",
+    description: "Expert training programs for operators and maintenance personnel.",
+    icon: "GraduationCap",
+  },
 ];
 
 // Testimonials
 export const testimonials = [
   {
-    quote: "Maksoud Coal has been our trusted supplier for over a decade. Their commitment to quality and timely delivery is unmatched in the industry.",
-    author: "James Mitchell",
-    role: "Procurement Director",
-    company: "Global Energy Corp",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=200&auto=format&fit=crop",
+    quote: "Diamond Machines has been our trusted partner for over 10 years. Their CNC machines are exceptional in quality and precision.",
+    author: "Ahmed Hassan",
+    role: "Production Manager",
+    company: "TechMetal Industries",
   },
   {
-    quote: "The logistics expertise and professional service we've experienced with Maksoud has streamlined our entire supply chain operations.",
-    author: "Yuki Tanaka",
-    role: "Operations Manager",
-    company: "Pacific Steel Ltd",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
+    quote: "Outstanding after-sales support and maintenance services. They truly care about their customers' success.",
+    author: "Maria Santos",
+    role: "Operations Director",
+    company: "Global Manufacturing Co.",
   },
   {
-    quote: "Exceptional quality control and transparent communication. They've set the standard for what we expect from our coal suppliers.",
-    author: "Anna Schmidt",
-    role: "Supply Chain Director",
-    company: "European Power AG",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200&auto=format&fit=crop",
+    quote: "The automation solutions provided by Diamond Machines transformed our production line efficiency by 40%.",
+    author: "John Smith",
+    role: "CEO",
+    company: "Smith Industries Ltd.",
   },
+];
+
+// Navigation items
+export const navItems = [
+  { name: "Home", href: "#home" },
+  { name: "About", href: "#about" },
+  { name: "Products", href: "#products" },
+  { name: "Services", href: "#services" },
+  { name: "Contact", href: "#contact" },
 ];

@@ -2,16 +2,15 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { images } from "@/lib/images";
-import { useScrollAnimation } from "@/hooks/use-scroll-animation";
-import { ArrowRight, Phone, Mail } from "lucide-react";
+import { ArrowRight, Phone, Mail, MessageCircle } from "lucide-react";
+import { images, companyInfo } from "@/lib/images";
 
 export function CTA() {
-  const { ref, isVisible } = useScrollAnimation<HTMLElement>();
+  const whatsappNumber = companyInfo.whatsapp.replace(/[^0-9]/g, "");
+  const whatsappUrl = `https://wa.me/${whatsappNumber}`;
 
   return (
-    <section ref={ref} className="relative overflow-hidden py-24 lg:py-32">
+    <section className="stacking-section relative overflow-hidden py-24 lg:py-32">
       {/* Background */}
       <div className="absolute inset-0 -z-10">
         <Image
@@ -21,88 +20,111 @@ export function CTA() {
           className="object-cover"
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/80 to-black/70" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/95 via-black/90 to-black/80" />
       </div>
 
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="grid gap-16 lg:grid-cols-2">
           {/* Content */}
-          <div
-            className={`flex flex-col justify-center transition-all duration-700 ${
-              isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-10"
-            }`}
-          >
-            <h2 className="font-sans text-3xl font-light tracking-tight text-white sm:text-4xl lg:text-5xl">
-              Ready to Partner
-              <br />
-              <span className="font-semibold">With Us?</span>
+          <div className="flex flex-col justify-center">
+            <div className="inline-flex items-center gap-3 self-start rounded-full border border-red-500/30 bg-red-500/10 px-5 py-2">
+              <span className="h-2 w-2 rounded-full bg-red-500" />
+              <span className="font-body text-sm font-medium uppercase tracking-widest text-white">
+                Get in Touch
+              </span>
+            </div>
+
+            <h2 className="mt-8 font-sans text-4xl font-bold leading-tight text-white md:text-5xl lg:text-6xl">
+              Ready to <span className="gradient-text">Transform</span> Your
+              Production?
             </h2>
-            <p className="mt-6 max-w-lg font-body text-base leading-relaxed text-white/70 lg:text-lg">
-              Let&apos;s discuss how we can help power your operations with premium coal products and reliable shipping solutions.
+
+            <p className="mt-6 max-w-lg font-body text-lg leading-relaxed text-white/60">
+              Contact us today for a free consultation. Our experts will help
+              you find the perfect machinery solutions for your business needs.
             </p>
 
-            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-              <Button
-                asChild
-                size="lg"
-                className="group h-14 rounded-full px-8 font-body text-sm font-medium uppercase tracking-wider transition-all hover:scale-105 hover:shadow-lg hover:shadow-primary/25"
+            <div className="mt-10 flex flex-wrap gap-4">
+              <Link
+                href="#contact"
+                className="group inline-flex items-center gap-3 bg-red-600 px-8 py-4 font-body text-sm font-semibold uppercase tracking-wider text-white transition-all hover:bg-red-700"
               >
-                <Link href="#contact">
-                  Get a Quote
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                size="lg"
-                className="h-14 rounded-full border-white/30 bg-white/10 px-8 font-body text-sm font-medium uppercase tracking-wider text-white backdrop-blur-sm transition-all hover:scale-105 hover:bg-white/20 hover:text-white"
+                Request Quote
+                <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
+              </Link>
+              <Link
+                href="#products"
+                className="inline-flex items-center gap-3 border-2 border-white/30 bg-transparent px-8 py-4 font-body text-sm font-semibold uppercase tracking-wider text-white transition-all hover:border-white hover:bg-white/10"
               >
-                <Link href="#services">Learn More</Link>
-              </Button>
+                View Products
+              </Link>
             </div>
           </div>
 
           {/* Contact Cards */}
-          <div
-            className={`flex flex-col justify-center gap-6 transition-all duration-700 delay-200 ${
-              isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-10"
-            }`}
-          >
-            <div className="group rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition-all hover:border-primary/50 hover:bg-white/10">
-              <div className="flex items-center gap-4">
-                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/20 transition-colors group-hover:bg-primary">
-                  <Phone className="h-6 w-6 text-primary transition-colors group-hover:text-primary-foreground" />
-                </div>
-                <div>
-                  <p className="font-body text-sm text-white/60">Call us directly</p>
-                  <p className="mt-1 font-sans text-xl font-semibold text-white">
-                    +971 4 123 4567
-                  </p>
-                </div>
+          <div className="flex flex-col justify-center gap-6">
+            {/* Phone Card */}
+            <a
+              href={`tel:${companyInfo.phone}`}
+              className="group flex items-center gap-6 border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition-all hover:border-red-500/50 hover:bg-white/10"
+            >
+              <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center bg-gradient-to-br from-red-600 to-red-700">
+                <Phone className="h-7 w-7 text-white" />
               </div>
-            </div>
-
-            <div className="group rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition-all hover:border-primary/50 hover:bg-white/10">
-              <div className="flex items-center gap-4">
-                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/20 transition-colors group-hover:bg-primary">
-                  <Mail className="h-6 w-6 text-primary transition-colors group-hover:text-primary-foreground" />
-                </div>
-                <div>
-                  <p className="font-body text-sm text-white/60">Email us anytime</p>
-                  <p className="mt-1 font-sans text-xl font-semibold text-white">
-                    info@maksoudcoal.com
-                  </p>
-                </div>
+              <div>
+                <p className="font-body text-sm uppercase tracking-wider text-white/50">
+                  Call Us Directly
+                </p>
+                <p className="mt-1 font-sans text-2xl font-bold text-white">
+                  {companyInfo.phone}
+                </p>
               </div>
-            </div>
+            </a>
 
-            <p className="mt-4 font-body text-sm text-white/50">
-              Available 24/7 for urgent inquiries. Response time within 2 hours during business hours.
-            </p>
+            {/* WhatsApp Card */}
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-6 border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition-all hover:border-green-500/50 hover:bg-white/10"
+            >
+              <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center bg-gradient-to-br from-green-500 to-green-600">
+                <MessageCircle className="h-7 w-7 text-white" />
+              </div>
+              <div>
+                <p className="font-body text-sm uppercase tracking-wider text-white/50">
+                  WhatsApp Chat
+                </p>
+                <p className="mt-1 font-sans text-2xl font-bold text-white">
+                  {companyInfo.whatsapp}
+                </p>
+              </div>
+            </a>
+
+            {/* Email Card */}
+            <a
+              href={`mailto:${companyInfo.email}`}
+              className="group flex items-center gap-6 border border-white/10 bg-white/5 p-6 backdrop-blur-sm transition-all hover:border-orange-500/50 hover:bg-white/10"
+            >
+              <div className="flex h-16 w-16 flex-shrink-0 items-center justify-center bg-gradient-to-br from-orange-500 to-orange-600">
+                <Mail className="h-7 w-7 text-white" />
+              </div>
+              <div>
+                <p className="font-body text-sm uppercase tracking-wider text-white/50">
+                  Email Us
+                </p>
+                <p className="mt-1 font-sans text-xl font-bold text-white">
+                  {companyInfo.email}
+                </p>
+              </div>
+            </a>
           </div>
         </div>
       </div>
+
+      {/* Decorative corners */}
+      <div className="absolute left-6 top-24 h-20 w-20 border-l-2 border-t-2 border-red-500/50" />
+      <div className="absolute bottom-24 right-6 h-20 w-20 border-b-2 border-r-2 border-orange-500/50" />
     </section>
   );
 }

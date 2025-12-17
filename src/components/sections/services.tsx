@@ -1,181 +1,134 @@
 "use client";
 
-import Image from "next/image";
-import Link from "next/link";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Anchor, Factory, FileCheck, Package, Ship, Warehouse, ArrowRight } from "lucide-react";
-import { images } from "@/lib/images";
-import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import { Factory, Wrench, Settings, GraduationCap, Truck, HeadphonesIcon } from "lucide-react";
+import { services } from "@/lib/images";
 
-const services = [
+const iconMap: { [key: string]: React.ComponentType<{ className?: string }> } = {
+  Factory,
+  Wrench,
+  Settings,
+  GraduationCap,
+  Truck,
+  HeadphonesIcon,
+};
+
+const extendedServices = [
+  ...services,
   {
-    icon: Factory,
-    title: "Coal Export",
-    description:
-      "Premium quality coal sourced from certified mines, processed and prepared to meet international specifications.",
-    features: ["Thermal Coal", "Metallurgical Coal", "Anthracite"],
-    image: images.services.coalExport,
+    title: "Delivery",
+    description: "Worldwide shipping and logistics solutions for all machinery orders.",
+    icon: "Truck",
   },
   {
-    icon: Ship,
-    title: "Maritime Shipping",
-    description:
-      "Comprehensive ocean freight services with access to major shipping routes and partnerships worldwide.",
-    features: ["Bulk Carriers", "Container Ships", "Charter Services"],
-    image: images.services.shipping,
-  },
-  {
-    icon: Warehouse,
-    title: "Storage & Handling",
-    description:
-      "State-of-the-art storage facilities ensuring product integrity throughout the supply chain.",
-    features: ["Climate Control", "Inventory Management", "Quality Testing"],
-    image: images.services.storage,
-  },
-  {
-    icon: Anchor,
-    title: "Port Operations",
-    description:
-      "Strategic partnerships with major ports enabling smooth loading, unloading, and transshipment globally.",
-    features: ["Loading Services", "Customs Clearance", "Documentation"],
-    image: images.services.portOperations,
-  },
-  {
-    icon: FileCheck,
-    title: "Quality Control",
-    description:
-      "Comprehensive testing and certification ensuring coal meets buyer specifications and standards.",
-    features: ["Lab Analysis", "Certification", "Grade Verification"],
-    image: images.services.qualityControl,
-  },
-  {
-    icon: Package,
-    title: "Logistics Solutions",
-    description:
-      "End-to-end supply chain management from mine to destination, with real-time tracking.",
-    features: ["Route Optimization", "Real-time Tracking", "24/7 Support"],
-    image: images.services.logistics,
+    title: "Support",
+    description: "Round-the-clock customer support and consultation services.",
+    icon: "HeadphonesIcon",
   },
 ];
 
 export function Services() {
-  const { ref, isVisible } = useScrollAnimation<HTMLElement>();
-
   return (
     <section
       id="services"
-      ref={ref}
-      className="relative overflow-hidden bg-muted/30 py-24 lg:py-32"
+      className="stacking-section relative overflow-hidden bg-black py-24 lg:py-32"
     >
-      {/* Background Decoration */}
-      <div className="absolute left-0 top-1/2 -z-10 h-[600px] w-[600px] -translate-y-1/2 rounded-full bg-primary/5 blur-3xl" />
+      {/* Background Elements */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(220,38,38,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(220,38,38,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
+        <div className="absolute left-0 top-0 h-[500px] w-[500px] rounded-full bg-red-600/5 blur-[100px]" />
+        <div className="absolute bottom-0 right-0 h-[500px] w-[500px] rounded-full bg-orange-500/5 blur-[100px]" />
+      </div>
 
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+      <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
-        <div
-          className={`mx-auto max-w-2xl text-center transition-all duration-700 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
-        >
-          <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2">
-            <span className="font-body text-xs font-semibold uppercase tracking-wider text-primary">
-              What We Offer
-            </span>
+        <div className="mb-16">
+          <div className="grid gap-8 lg:grid-cols-2 lg:items-end">
+            <div>
+              <div className="inline-flex items-center gap-3 rounded-full border border-red-500/30 bg-red-500/10 px-5 py-2">
+                <span className="h-2 w-2 rounded-full bg-red-500" />
+                <span className="font-body text-sm font-medium uppercase tracking-widest text-white">
+                  Our Services
+                </span>
+              </div>
+
+              <h2 className="mt-8 font-sans text-4xl font-bold leading-tight text-white md:text-5xl lg:text-6xl">
+                Complete <span className="gradient-text">Solutions</span>
+              </h2>
+            </div>
+
+            <p className="font-body text-lg text-white/60 lg:text-right">
+              From manufacturing to maintenance, we offer comprehensive services
+              to keep your operations running at peak efficiency.
+            </p>
           </div>
-          <h2 className="mt-6 font-sans text-3xl font-light tracking-tight sm:text-4xl lg:text-5xl">
-            Our <span className="font-semibold">Services</span>
-          </h2>
-          <p className="mt-4 font-body text-base text-muted-foreground lg:text-lg">
-            Comprehensive coal export and shipping solutions tailored to meet the diverse needs of our global clientele.
-          </p>
         </div>
 
         {/* Services Grid */}
-        <div className="mt-16 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map((service, index) => (
-            <Card
-              key={service.title}
-              className={`group overflow-hidden rounded-2xl border-0 bg-card shadow-lg transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl ${
-                isVisible
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-10"
-              }`}
-              style={{ transitionDelay: `${0.1 + index * 0.1}s` }}
-            >
-              {/* Image */}
-              <div className="relative h-48 overflow-hidden">
-                <Image
-                  src={service.image}
-                  alt={service.title}
-                  fill
-                  className="object-cover transition-transform duration-700 group-hover:scale-110"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {extendedServices.map((service, index) => {
+            const Icon = iconMap[service.icon] || Factory;
+            return (
+              <div
+                key={service.title}
+                className="group relative overflow-hidden border border-white/10 bg-white/5 p-8 backdrop-blur-sm transition-all duration-500 hover:border-red-500/50 hover:bg-white/10"
+              >
+                {/* Number */}
+                <span className="absolute -right-4 -top-8 font-sans text-[120px] font-bold text-white/[0.02]">
+                  0{index + 1}
+                </span>
 
-                {/* Icon Badge */}
-                <div className="absolute bottom-4 left-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary shadow-lg">
-                  <service.icon className="h-6 w-6 text-primary-foreground" />
+                {/* Icon */}
+                <div className="relative flex h-16 w-16 items-center justify-center bg-gradient-to-br from-red-600 to-orange-500">
+                  <Icon className="h-8 w-8 text-white" />
                 </div>
-              </div>
 
-              <CardContent className="p-6">
-                <h3 className="font-sans text-xl font-semibold">
+                {/* Content */}
+                <h3 className="mt-6 font-sans text-xl font-bold text-white">
                   {service.title}
                 </h3>
-                <p className="mt-3 font-body text-sm leading-relaxed text-muted-foreground line-clamp-2">
+
+                <p className="mt-3 font-body text-sm leading-relaxed text-white/60">
                   {service.description}
                 </p>
 
-                {/* Features */}
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {service.features.map((feature) => (
-                    <span
-                      key={feature}
-                      className="rounded-full bg-muted px-3 py-1 font-body text-xs text-muted-foreground"
-                    >
-                      {feature}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Learn More Link */}
-                <div className="mt-6">
-                  <Link
-                    href="#contact"
-                    className="group/link inline-flex items-center font-body text-sm font-medium text-primary transition-colors hover:text-primary/80"
-                  >
-                    Learn more
-                    <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover/link:translate-x-1" />
-                  </Link>
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+                {/* Hover line */}
+                <div className="absolute bottom-0 left-0 h-1 w-0 bg-gradient-to-r from-red-600 to-orange-500 transition-all duration-500 group-hover:w-full" />
+              </div>
+            );
+          })}
         </div>
 
-        {/* CTA */}
-        <div
-          className={`mt-16 text-center transition-all duration-700 delay-500 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-          }`}
-        >
-          <p className="font-body text-muted-foreground">
-            Need a custom solution for your business?
-          </p>
-          <Button
-            asChild
-            size="lg"
-            className="mt-4 h-12 rounded-full px-8 font-body text-sm font-medium uppercase tracking-wider"
-          >
-            <Link href="#contact">
-              Contact Our Team
-              <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
+        {/* Bottom Stats */}
+        <div className="mt-20 grid grid-cols-2 gap-8 border-t border-white/10 pt-12 md:grid-cols-4">
+          <div className="text-center">
+            <p className="font-sans text-4xl font-bold text-red-500">99%</p>
+            <p className="mt-2 font-body text-sm uppercase tracking-wider text-white/50">
+              Customer Satisfaction
+            </p>
+          </div>
+          <div className="text-center">
+            <p className="font-sans text-4xl font-bold text-red-500">24/7</p>
+            <p className="mt-2 font-body text-sm uppercase tracking-wider text-white/50">
+              Support Available
+            </p>
+          </div>
+          <div className="text-center">
+            <p className="font-sans text-4xl font-bold text-red-500">48h</p>
+            <p className="mt-2 font-body text-sm uppercase tracking-wider text-white/50">
+              Response Time
+            </p>
+          </div>
+          <div className="text-center">
+            <p className="font-sans text-4xl font-bold text-red-500">5Y</p>
+            <p className="mt-2 font-body text-sm uppercase tracking-wider text-white/50">
+              Warranty Period
+            </p>
+          </div>
         </div>
       </div>
+
+      {/* Corner decorations */}
+      <div className="absolute right-6 top-24 h-20 w-20 border-r-2 border-t-2 border-orange-500/50" />
     </section>
   );
 }

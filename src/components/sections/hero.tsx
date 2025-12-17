@@ -1,177 +1,208 @@
 "use client";
 
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, ChevronDown, Play } from "lucide-react";
-import { images } from "@/lib/images";
+import { ArrowRight, ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
+import { images, stats } from "@/lib/images";
 
 export function Hero() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const slides = images.heroSlides;
+
+  const goToSlide = useCallback((index: number) => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+    setCurrentSlide(index);
+    setTimeout(() => setIsAnimating(false), 1000);
+  }, [isAnimating]);
+
+  const nextSlide = useCallback(() => {
+    goToSlide((currentSlide + 1) % slides.length);
+  }, [currentSlide, slides.length, goToSlide]);
+
+  const prevSlide = useCallback(() => {
+    goToSlide((currentSlide - 1 + slides.length) % slides.length);
+  }, [currentSlide, slides.length, goToSlide]);
+
+  // Auto-advance slides
+  useEffect(() => {
+    const timer = setInterval(nextSlide, 6000);
+    return () => clearInterval(timer);
+  }, [nextSlide]);
+
   return (
-    <section
-      id="home"
-      className="relative flex min-h-screen items-center justify-center overflow-hidden"
-    >
-      {/* Background Image */}
-      <div className="absolute inset-0 -z-10">
-        <Image
-          src={images.hero}
-          alt="Industrial shipping port"
-          fill
-          priority
-          className="object-cover"
-          sizes="100vw"
-        />
-        {/* Gradient Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/30" />
-      </div>
-
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 -z-5 overflow-hidden">
-        <div className="absolute -top-1/2 -right-1/4 h-[800px] w-[800px] rounded-full bg-primary/5 blur-3xl" />
-        <div className="absolute -bottom-1/2 -left-1/4 h-[600px] w-[600px] rounded-full bg-primary/10 blur-3xl" />
-      </div>
-
-      <div className="relative mx-auto max-w-7xl px-6 py-32 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* Content */}
-          <div className="flex flex-col justify-center text-center lg:text-left">
-            {/* Tagline */}
-            <div className="animate-fade-in-down inline-flex items-center gap-2 self-center rounded-full border border-white/20 bg-white/10 px-4 py-2 backdrop-blur-sm lg:self-start">
-              <span className="h-2 w-2 animate-pulse rounded-full bg-primary" />
-              <span className="font-body text-xs font-medium uppercase tracking-[0.2em] text-white/90">
-                Global Coal Solutions
-              </span>
-            </div>
-
-            {/* Main Heading */}
-            <h1 className="mt-8 animate-fade-in-up font-sans text-4xl font-light leading-[1.1] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
-              Powering
-              <br />
-              <span className="font-semibold gradient-text">Industries</span>
-              <br />
-              <span className="text-white/90">Worldwide</span>
-            </h1>
-
-            {/* Description */}
-            <p className="mt-8 max-w-xl animate-fade-in-up font-body text-base leading-relaxed text-white/70 sm:text-lg lg:text-xl" style={{ animationDelay: "0.2s" }}>
-              Premium coal export and international shipping services. Your trusted partner for quality products and reliable logistics solutions across the globe.
-            </p>
-
-            {/* CTA Buttons */}
-            <div className="mt-10 flex flex-col gap-4 animate-fade-in-up sm:flex-row sm:justify-center lg:justify-start" style={{ animationDelay: "0.3s" }}>
-              <Button
-                asChild
-                size="lg"
-                className="group h-14 rounded-full px-8 font-body text-sm font-medium uppercase tracking-wider transition-all hover:scale-105 hover:shadow-lg hover:shadow-primary/25"
-              >
-                <Link href="#services">
-                  Explore Services
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Link>
-              </Button>
-              <Button
-                asChild
-                variant="outline"
-                size="lg"
-                className="group h-14 rounded-full border-white/30 bg-white/10 px-8 font-body text-sm font-medium uppercase tracking-wider text-white backdrop-blur-sm transition-all hover:scale-105 hover:bg-white/20 hover:text-white"
-              >
-                <Link href="#about" className="flex items-center">
-                  <Play className="mr-2 h-4 w-4" />
-                  Watch Story
-                </Link>
-              </Button>
-            </div>
-
-            {/* Trust Indicators */}
-            <div className="mt-12 animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
-              <p className="mb-4 font-body text-xs uppercase tracking-wider text-white/50">
-                Trusted by industry leaders worldwide
-              </p>
-              <div className="flex flex-wrap items-center justify-center gap-8 lg:justify-start">
-                {["ISO 9001", "ISO 14001", "OHSAS 18001"].map((cert) => (
-                  <div
-                    key={cert}
-                    className="rounded-md border border-white/20 bg-white/5 px-4 py-2 backdrop-blur-sm"
-                  >
-                    <span className="font-body text-xs font-medium text-white/70">
-                      {cert}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
+    <section id="home" className="relative h-screen w-full overflow-hidden bg-black">
+      {/* Slides */}
+      {slides.map((slide, index) => (
+        <div
+          key={index}
+          className={`absolute inset-0 transition-all duration-1000 ease-out ${
+            index === currentSlide
+              ? "opacity-100 scale-100"
+              : "opacity-0 scale-110"
+          }`}
+        >
+          {/* Background Image with Ken Burns effect */}
+          <div className="absolute inset-0">
+            <Image
+              src={slide.image}
+              alt={slide.title}
+              fill
+              priority={index === 0}
+              className={`object-cover ${
+                index === currentSlide ? "animate-ken-burns" : ""
+              }`}
+              sizes="100vw"
+            />
           </div>
 
-          {/* Stats Card */}
-          <div className="hidden lg:flex lg:items-center lg:justify-end">
-            <div className="animate-fade-in-right glass rounded-2xl border border-white/10 p-8 shadow-2xl" style={{ animationDelay: "0.5s" }}>
-              <h3 className="mb-6 font-sans text-lg font-medium text-white">
-                Our Impact in Numbers
-              </h3>
-              <div className="grid grid-cols-2 gap-6">
-                {[
-                  { value: "25+", label: "Years of Excellence" },
-                  { value: "50+", label: "Countries Served" },
-                  { value: "1M+", label: "Tons Exported" },
-                  { value: "500+", label: "Happy Clients" },
-                ].map((stat, index) => (
-                  <div
-                    key={stat.label}
-                    className="group cursor-default rounded-xl bg-white/5 p-5 transition-all hover:bg-white/10"
-                  >
-                    <p className="font-sans text-3xl font-bold text-primary transition-transform group-hover:scale-110">
-                      {stat.value}
-                    </p>
-                    <p className="mt-1 font-body text-xs uppercase tracking-wider text-white/60">
-                      {stat.label}
-                    </p>
-                  </div>
+          {/* Gradient Overlays */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30" />
+        </div>
+      ))}
+
+      {/* Content */}
+      <div className="relative z-10 flex h-full items-center">
+        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8">
+          <div className="max-w-3xl">
+            {/* Animated content for current slide */}
+            <div key={currentSlide} className="stagger-children">
+              {/* Tagline */}
+              <div className="inline-flex items-center gap-3 rounded-full border border-red-500/30 bg-red-500/10 px-5 py-2 backdrop-blur-sm">
+                <span className="h-2 w-2 animate-pulse rounded-full bg-red-500" />
+                <span className="font-body text-sm font-medium uppercase tracking-widest text-white">
+                  Diamond Machines
+                </span>
+              </div>
+
+              {/* Main Title */}
+              <h1 className="mt-8 font-sans text-5xl font-bold leading-tight text-white md:text-6xl lg:text-7xl xl:text-8xl">
+                {slides[currentSlide].title.split(" ").map((word, i) => (
+                  <span key={i}>
+                    {i === 1 ? (
+                      <span className="gradient-text">{word}</span>
+                    ) : (
+                      word
+                    )}{" "}
+                  </span>
                 ))}
+              </h1>
+
+              {/* Subtitle */}
+              <p className="mt-6 max-w-xl font-body text-xl text-white/80 md:text-2xl">
+                {slides[currentSlide].subtitle}
+              </p>
+
+              {/* CTA Buttons */}
+              <div className="mt-10 flex flex-wrap gap-4">
+                <Button
+                  asChild
+                  size="lg"
+                  className="btn-hover group h-14 rounded-none bg-red-600 px-8 font-body text-sm font-semibold uppercase tracking-wider text-white hover:bg-red-700"
+                >
+                  <Link href="#products">
+                    View Products
+                    <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="h-14 rounded-none border-2 border-white/40 bg-transparent px-8 font-body text-sm font-semibold uppercase tracking-wider text-white hover:border-orange-500 hover:bg-orange-500/10 hover:text-white"
+                >
+                  <Link href="#contact">Get Quote</Link>
+                </Button>
               </div>
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Mobile Stats */}
-        <div className="mt-16 grid grid-cols-2 gap-4 sm:grid-cols-4 lg:hidden">
-          {[
-            { value: "25+", label: "Years" },
-            { value: "50+", label: "Countries" },
-            { value: "1M+", label: "Tons" },
-            { value: "500+", label: "Clients" },
-          ].map((stat) => (
-            <div
-              key={stat.label}
-              className="rounded-xl border border-white/10 bg-white/5 p-4 text-center backdrop-blur-sm"
-            >
-              <p className="font-sans text-2xl font-bold text-primary">
-                {stat.value}
-              </p>
-              <p className="mt-1 font-body text-xs uppercase tracking-wider text-white/60">
-                {stat.label}
-              </p>
-            </div>
-          ))}
+      {/* Slide Navigation */}
+      <div className="absolute bottom-32 left-6 z-20 flex items-center gap-4 lg:left-auto lg:right-8">
+        <button
+          onClick={prevSlide}
+          className="flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-black/30 text-white backdrop-blur-sm transition-all hover:border-red-500 hover:bg-red-500"
+          aria-label="Previous slide"
+        >
+          <ChevronLeft className="h-6 w-6" />
+        </button>
+        <button
+          onClick={nextSlide}
+          className="flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-black/30 text-white backdrop-blur-sm transition-all hover:border-red-500 hover:bg-red-500"
+          aria-label="Next slide"
+        >
+          <ChevronRight className="h-6 w-6" />
+        </button>
+      </div>
+
+      {/* Slide Indicators */}
+      <div className="absolute bottom-12 left-6 z-20 flex items-center gap-3 lg:left-1/2 lg:-translate-x-1/2">
+        {slides.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => goToSlide(index)}
+            className={`slider-dot h-3 rounded-full transition-all ${
+              index === currentSlide
+                ? "active w-8 bg-red-500"
+                : "w-3 bg-white/40 hover:bg-white/60"
+            }`}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
+      </div>
+
+      {/* Progress Bar */}
+      <div className="absolute bottom-0 left-0 right-0 z-20 h-1 bg-white/10">
+        <div
+          key={currentSlide}
+          className="slider-progress h-full"
+          style={{ animationDuration: "6s" }}
+        />
+      </div>
+
+      {/* Stats Bar */}
+      <div className="absolute bottom-0 left-0 right-0 z-10">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="hidden border-t border-white/10 py-6 md:grid md:grid-cols-4 md:gap-8">
+            {stats.map((stat, index) => (
+              <div
+                key={index}
+                className="text-center transition-all hover:scale-105"
+              >
+                <p className="font-sans text-3xl font-bold text-red-500 lg:text-4xl">
+                  {stat.value}
+                </p>
+                <p className="mt-1 font-body text-xs uppercase tracking-wider text-white/60">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+      <div className="absolute bottom-24 right-6 z-20 hidden lg:block">
         <Link
           href="#about"
-          className="flex flex-col items-center gap-2 text-white/60 transition-colors hover:text-primary"
+          className="flex flex-col items-center gap-2 text-white/60 transition-colors hover:text-red-500"
         >
-          <span className="font-body text-xs uppercase tracking-wider">
-            Scroll to explore
+          <span className="font-body text-xs uppercase tracking-wider [writing-mode:vertical-lr]">
+            Scroll Down
           </span>
-          <ChevronDown className="h-5 w-5" />
+          <ChevronDown className="h-5 w-5 animate-bounce-slow" />
         </Link>
       </div>
 
-      {/* Decorative Elements */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
+      {/* Decorative corner elements */}
+      <div className="absolute left-6 top-24 h-20 w-20 border-l-2 border-t-2 border-red-500/50" />
+      <div className="absolute bottom-24 right-6 h-20 w-20 border-b-2 border-r-2 border-orange-500/50" />
     </section>
   );
 }
